@@ -1,9 +1,17 @@
 import { createStore } from "redux"
 import RootState from "../types/RootState"
+import PinGroups from "../types/PinGroup"
 
 export const savePins = (pins: string[]) => {
     return {
         type: "SAVE_PINS",
+        payload: pins
+    }
+}
+
+export const deletePins = (pins: string[]) => {
+    return {
+        type: "DELETE_PINS",
         payload: pins
     }
 }
@@ -27,6 +35,17 @@ export const reducer = (state = initialState, action: any) => {
                     ]
                 }
             }
+
+        case "DELETE_PINS":
+            const filteredPinGroups: PinGroups[] = state.namedPinGroups.filter(
+                (pinGroup: PinGroups) => {
+                    return pinGroup.pins !== action.payload
+                }
+            )
+            return {
+                namedPinGroups: filteredPinGroups
+            }
+
         default:
             return state
     }

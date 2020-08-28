@@ -1,5 +1,5 @@
-import PinGroups from "./PinGroups"
+import PinGroup from "./PinGroup"
 
 export default interface RootState {
-    namedPinGroups: PinGroups[]
+    namedPinGroups: PinGroup[]
 }

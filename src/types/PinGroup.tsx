@@ -1,4 +1,4 @@
-export default interface PinGroups {
+export default interface PinGroup {
     name: string
     pins: string[]
 }
