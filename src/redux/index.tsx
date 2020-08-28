@@ -1,4 +1,5 @@
 import { createStore } from "redux"
+import RootState from "../types/RootState"
 
 export const savePins = (pins: string[]) => {
     return {
@@ -20,11 +21,7 @@ export const reducer = (state = initialState, action: any) => {
     }
 }
 
-interface StateType {
-    pins: string[][]
-}
-
-const initialState: StateType = {
+const initialState: RootState = {
     pins: []
 }
 
