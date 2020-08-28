@@ -10,16 +10,23 @@ export const savePins = (pins: string[]) => {
 export const reducer = (state = initialState, action: any) => {
     switch (action.type) {
         case "SAVE_PINS":
-            return { ...state, pins: action.payload }
+            if (state.pins.includes(action.payload)) {
+                return state
+            } else {
+                return { ...state, pins: [...state.pins, action.payload] }
+            }
         default:
             return state
     }
 }
 
-const initialState = {
+interface StateType {
+    pins: string[][]
+}
+
+const initialState: StateType = {
     pins: []
 }
 
 const store = createStore(reducer)
-
 export default store
