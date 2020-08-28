@@ -15,8 +15,8 @@ const GeneratePage = () => {
         dispatch(savePins(pins))
     }
 
-    const pinBoxes = pins.map((pin) => {
-        return <input value={pin}></input>
+    const pinBoxes = pins.map((pin, index) => {
+        return <input readOnly value={pin} key={index}></input>
     })
 
     return (
