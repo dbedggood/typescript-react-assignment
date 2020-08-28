@@ -1,5 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux"
+import SetOfPins from "../components/SetOfPins"
 import RootState from "../types/RootState"
 
 const SavedPage = () => {
@@ -7,9 +8,7 @@ const SavedPage = () => {
     const boxedPinGroups = pinGroups.map((group, groupIndex) => {
         return (
             <div key={groupIndex}>
-                {group.map((pin, index) => {
-                    return <input readOnly value={pin} key={index}></input>
-                })}
+                <SetOfPins pins={group}></SetOfPins>
             </div>
         )
     })

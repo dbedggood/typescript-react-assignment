@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
-import generatePins from "../generatePins"
 import { savePins } from "../redux"
+import SetOfPins from "../components/SetOfPins"
+import generatePins from "../generatePins"
 
 const GeneratePage = () => {
     const [pins, setPins] = useState<string[]>(["", "", "", "", ""])
@@ -15,13 +16,11 @@ const GeneratePage = () => {
         dispatch(savePins(pins))
     }
 
-    const pinBoxes = pins.map((pin, index) => {
-        return <input readOnly value={pin} key={index}></input>
-    })
-
     return (
         <div>
-            <div>{pinBoxes}</div>
+            <div>
+                <SetOfPins pins={pins}></SetOfPins>
+            </div>
             <button onClick={() => handleGenerate()}>GENERATE</button>
             <button onClick={() => handleSave()}>SAVE</button>
         </div>
