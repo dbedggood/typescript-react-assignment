@@ -1,6 +1,6 @@
 import { createStore } from "redux"
 import RootState from "../types/RootState"
-import PinGroups from "../types/PinGroup"
+import PinGroup from "../types/PinGroup"
 
 export const savePins = (pins: string[]) => {
     return {
@@ -16,14 +16,21 @@ export const deletePins = (pins: string[]) => {
     }
 }
 
+export const updateName = (namedPinGroup: PinGroup) => {
+    return {
+        type: "UPDATE_NAME",
+        payload: namedPinGroup
+    }
+}
+
 export const reducer = (state = initialState, action: any) => {
     switch (action.type) {
         case "SAVE_PINS":
-            const pinGroups: string[][] = state.namedPinGroups.map(
+            const pinGroupPins: string[][] = state.namedPinGroups.map(
                 (pinGroup) => pinGroup.pins
             )
             if (
-                pinGroups.includes(action.payload) ||
+                pinGroupPins.includes(action.payload) ||
                 action.payload.includes("")
             ) {
                 return state
@@ -31,19 +38,35 @@ export const reducer = (state = initialState, action: any) => {
                 return {
                     namedPinGroups: [
                         ...state.namedPinGroups,
-                        { name: "placeholderName", pins: action.payload }
+                        { name: "Name", pins: action.payload }
                     ]
                 }
             }
 
         case "DELETE_PINS":
-            const filteredPinGroups: PinGroups[] = state.namedPinGroups.filter(
-                (pinGroup: PinGroups) => {
+            const filteredPinGroups: PinGroup[] = state.namedPinGroups.filter(
+                (pinGroup: PinGroup) => {
                     return pinGroup.pins !== action.payload
                 }
             )
             return {
                 namedPinGroups: filteredPinGroups
+            }
+
+        case "UPDATE_NAME":
+            const updatedPinGroups: PinGroup[] = state.namedPinGroups.map(
+                (namedPinGroup) => {
+                    if (namedPinGroup.pins === action.payload.pins) {
+                        return {
+                            ...namedPinGroup,
+                            name: action.payload.name
+                        }
+                    }
+                    return namedPinGroup
+                }
+            )
+            return {
+                namedPinGroups: updatedPinGroups
             }
 
         default:
@@ -56,5 +79,4 @@ const initialState: RootState = {
 }
 
 const store = createStore(reducer)
-store.subscribe(() => console.log(store.getState()))
 export default store
