@@ -23,7 +23,7 @@ export const reducer = (state = initialState, action: any) => {
                 return {
                     namedPinGroups: [
                         ...state.namedPinGroups,
-                        { name: "", pins: action.payload }
+                        { name: "placeholderName", pins: action.payload }
                     ]
                 }
             }

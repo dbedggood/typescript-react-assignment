@@ -7,13 +7,12 @@ const SavedPage = () => {
     const namedPinGroups = useSelector(
         (state: RootState) => state.namedPinGroups
     )
-    const pinGroups: string[][] = namedPinGroups.map(
-        (pinGroup) => pinGroup.pins
-    )
-    const boxedPinGroups = pinGroups.map((group, groupIndex) => {
+
+    const boxedPinGroups = namedPinGroups.map((group, groupIndex) => {
         return (
             <div key={groupIndex}>
-                <SetOfPins pins={group}></SetOfPins>
+                <input value={group.name}></input>
+                <SetOfPins pins={group.pins}></SetOfPins>
             </div>
         )
     })
