@@ -11,10 +11,21 @@ export const savePins = (pins: string[]) => {
 export const reducer = (state = initialState, action: any) => {
     switch (action.type) {
         case "SAVE_PINS":
-            if (state.pins.includes(action.payload)) {
+            const pinGroups: string[][] = state.namedPinGroups.map(
+                (pinGroup) => pinGroup.pins
+            )
+            if (
+                pinGroups.includes(action.payload) ||
+                action.payload.includes("")
+            ) {
                 return state
             } else {
-                return { ...state, pins: [...state.pins, action.payload] }
+                return {
+                    namedPinGroups: [
+                        ...state.namedPinGroups,
+                        { name: "", pins: action.payload }
+                    ]
+                }
             }
         default:
             return state
@@ -22,8 +33,9 @@ export const reducer = (state = initialState, action: any) => {
 }
 
 const initialState: RootState = {
-    pins: []
+    namedPinGroups: []
 }
 
 const store = createStore(reducer)
+store.subscribe(() => console.log(store.getState()))
 export default store

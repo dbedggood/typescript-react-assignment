@@ -1,3 +1,5 @@
+import PinGroups from "./PinGroups"
+
 export default interface RootState {
-    pins: string[][]
+    namedPinGroups: PinGroups[]
 }

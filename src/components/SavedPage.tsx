@@ -4,7 +4,12 @@ import SetOfPins from "../components/SetOfPins"
 import RootState from "../types/RootState"
 
 const SavedPage = () => {
-    const pinGroups = useSelector((state: RootState) => state.pins)
+    const namedPinGroups = useSelector(
+        (state: RootState) => state.namedPinGroups
+    )
+    const pinGroups: string[][] = namedPinGroups.map(
+        (pinGroup) => pinGroup.pins
+    )
     const boxedPinGroups = pinGroups.map((group, groupIndex) => {
         return (
             <div key={groupIndex}>
